@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pneumonia Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            /*background-color: #007bff;*/
+        
+        }
+
+        h1{
+            font-size: 50px;
+            color: #082c53;
+            font-weight: 100px;
+        }
+
+        form {
+            display: inline-block;
+            margin: 0 auto;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+            margin-left : 50px;
+            padding-bottom: 20px;
+        }
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        button:hover{
+            color: black ;
+            background-color: #007bff; 
+        }
+
+        .inside{
+            position: relative;
+            margin : 15% 20%;
+            background-color: rgb(255, 254, 254);
+            padding: auto 20%;
+            width: auto;
+            max-height: 600px;
+            box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.5);
+            /*background-color: #81b7f1; */
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result1{
+            margin: 20px auto;
+        }
+
+        #uploaded-image {
+            max-width: 200px;
+            height: 200px;
+            position: relative;
+            margin-left : 28%;
+            display: none;
+        }
+
+        .custom-file-upload{
+            border: 2px solid #007bff;
+            color: #007bff;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="inside">
+       <h1>Pneumonia Detection</h1>
+       <h3>Select a X-Ray Image</h3>
+    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+        <input class="custom-file-upload" type="file" name="image"  required> <br />  <!-- onchange="showImage(this)" -->
+        <button type="submit" onclick="showImage(this)" >Predict</button>
+    </form>
+
+    <img id="uploaded-image" src="#" alt="Uploaded Image" />
+
+    {% if result %}
+        <div class="result">
+            <h2 class="result1">{{ result }}</h2>
+           <!-- <p>Predictions: {{ prediction }}</p> --> 
+        </div>
+    {% endif %} 
+    </div>
+
+   <!-- <script>
+        function showImage(input) {
+            var file = input.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+            var img = document.getElementById('uploaded-image');
+            img.src = e.target.result;
+            img.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+
+        
+    </script> -->
+<!--
+<script>
+
+
+    function readResult() {
+        var result = "{{ result }}";
+        var prediction = "{{ prediction }}";
+
+        if (result && prediction) {
+            var utterance = new SpeechSynthesisUtterance(`The prediction is: ${result}. The model's predictions are: ${prediction}`);
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+</script>
+
+
+    
+</body>
+</html>
